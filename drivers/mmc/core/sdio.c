@@ -708,6 +708,14 @@ try_again:
 	if (host->ops->init_card)
 		host->ops->init_card(host, card);
 
+	mmc_fixup_device(card, sdio_card_init_methods);
+
+	card->ocr = ocr_card;
+
+	if (mmc_card_broken_rocr_s18a(card)) {
+		rocr &= ~R4_18V_PRESENT;
+	}
+
 	/*
 	 * If the host and card support UHS-I mode request the card
 	 * to switch to 1.8V signaling level.  No 1.8v signalling if

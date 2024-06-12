@@ -145,6 +145,13 @@ static const struct mmc_fixup __maybe_unused sdio_fixup_methods[] = {
 	END_FIXUP
 };
 
+static const struct mmc_fixup __maybe_unused sdio_card_init_methods[] = {
+	SDIO_FIXUP_COMPATIBLE("realtek,rtl8822cs", add_quirk,
+			      MMC_QUIRK_BROKEN_ROCR_S18A),
+
+	END_FIXUP
+};
+
 static inline void mmc_fixup_device(struct mmc_card *card,
 				    const struct mmc_fixup *table)
 {
